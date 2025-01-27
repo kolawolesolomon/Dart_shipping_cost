@@ -20,10 +20,10 @@ int userAnswer = 1;
     int? userInputP = int.tryParse(rawInput ?? '');
 
     if (userInputP == null) {
-      print('Enter a valid input!');      
+      print('Enter a valid input! Try again!\n');      
     } else {
       if (userInputP== 1) {
-        checkDestinationFile();
+        createFile();
         print('Done');
         userAnswer = 0;
       } else if (userInputP == 2) {
@@ -33,7 +33,7 @@ int userAnswer = 1;
         showDestination();
         userAnswer = 0;
       } else {
-        print('Selection out of range!');
+        print('Selection out of range! Try again!\n');
       }
     }
   }
@@ -59,10 +59,12 @@ void calculateShippingCost() {
 
 void createFile(){
   if (checkDestinationFile() == false){
+    print('file does not exist! but is now created!');
     File destinationFile = File('destination.txt'); // initializing File to store destinations
     destinationFile.createSync(); // creating the file
     addDestination();
   } else {
+    print('file exists!');
     addDestination();
   }
 } // createFile
