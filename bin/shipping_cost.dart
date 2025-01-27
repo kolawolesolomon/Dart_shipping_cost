@@ -23,8 +23,8 @@ int userAnswer = 1;
       print('Enter a valid input! Try again!\n');      
     } else {
       if (userInputP== 1) {
-        createFile();
-        print('Done');
+        addDestination(createFile());
+        print('Congratulatinos! Destination Added...');
         userAnswer = 0;
       } else if (userInputP == 2) {
         calculateShippingCost();
@@ -33,72 +33,37 @@ int userAnswer = 1;
         showDestination();
         userAnswer = 0;
       } else {
-        print('Selection out of range! Try again!\n');
+        print('\nSelection out of range! Try again!\n');
       }
     }
   }
 }
-
-dynamic checkDestinationFile() {// Check if destination file exists
+bool checkDestinationFile() {// Check if destination file exists and return true or false
   if (File('destination.txt').existsSync()) {
     return true;
   } else {
     return false;
   }
 } // checkDestinationFile
-
-void showDestination() {
+void showDestination() { // Show available destinations
   print('Showing');
 }
-
-
-void calculateShippingCost() {
+void calculateShippingCost() { // Calculate shipping cost
   print('Calculating');
 }
-
-
-void createFile(){
+File createFile(){ // Create destination file by first checking if it exists
   if (checkDestinationFile() == false){
-    print('file does not exist! but is now created!');
+    print('Destination log/directory has now been created on your device!');
     File destinationFile = File('destination.txt'); // initializing File to store destinations
     destinationFile.createSync(); // creating the file
-    addDestination();
+    return destinationFile; // creating the file
   } else {
-    print('file exists!');
-    addDestination();
+    print('Destination log/directory found!');
+    return File('destination.txt');
   }
 } // createFile
-
-void addDestination() {
-  print('add destination!');
-}
-
-
-
-
-// void addDestination() async {
-//   // destinationFile.writeAsString("Hello My dear sister!");
-//   if (await destinationFile.exists() == true) {
-//     print('Destination file exists!');
-//     String destination = userAddDestinationInput();
-//     if (destination == '') {
-//       print('You did not enter a destination!');
-//     } else {
-//       destinationList.add(destination);
-//       destinationFile.writeAsStringSync(destination,
-//         mode: FileMode.append);
-//     }
-//     print(destinationList);
-//   } else {
-//     print('Destination file does not exist!  but will be created!');
-//     destinationFile.writeAsStringSync(userAddDestinationInput(),
-//         mode: FileMode.append);
-//     destinationList.add(userAddDestinationInput());
-//     print(destinationList);
-//     print(destinationFile.readAsStringSync());
-//   }
-// }
-
-// String userAddDestinationInput() {
-//   print('Enter the destination you want to add!');
-//   String? userInput = stdin.readLineSync();
+void addDestination(File createdDocument) { // Add user input destination to file
+  print('\n\nEnter destination name: ');
+  String? destinationName = stdin.readLineSync();
+  createdDocument.writeAsString(destinationName!, mode: FileMode.append); // Writing destination to file
+} // addDestination 
