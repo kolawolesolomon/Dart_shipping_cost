@@ -38,7 +38,7 @@ int userAnswer = 1;
     }
   }
 }
-bool checkDestinationFile() {// Check if destination file exists and return true or false
+bool checkDestinationFile()  {// Check if destination file exists and return true or false
   if (File('destination.txt').existsSync()) {
     return true;
   } else {
